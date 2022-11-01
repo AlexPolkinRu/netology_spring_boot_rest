@@ -1,10 +1,9 @@
 package ru.netology.netology_spring_boot_rest.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-import ru.netology.netology_spring_boot_rest.Authorities;
-import ru.netology.netology_spring_boot_rest.exception.InvalidCredentials;
-import ru.netology.netology_spring_boot_rest.exception.UnauthorizedUser;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import ru.netology.netology_spring_boot_rest.repository.Authorities;
 import ru.netology.netology_spring_boot_rest.service.AuthorizationService;
 
 import java.util.List;
@@ -30,16 +29,4 @@ public class AuthorizationController {
         return service.getAuthorities(user, password);
     }
 
-    @ExceptionHandler(InvalidCredentials.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    String resolseValidationException(InvalidCredentials exception) {
-        return exception.getMessage();
-    }
-
-    @ExceptionHandler(UnauthorizedUser.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    String resolseValidationException(UnauthorizedUser exception) {
-        System.out.println(exception.getMessage());
-        return exception.getMessage();
-    }
 }

@@ -1,9 +1,10 @@
 package ru.netology.netology_spring_boot_rest.service;
 
 import org.springframework.stereotype.Service;
-import ru.netology.netology_spring_boot_rest.Authorities;
+import ru.netology.netology_spring_boot_rest.exception.AuthorizationError;
 import ru.netology.netology_spring_boot_rest.exception.InvalidCredentials;
 import ru.netology.netology_spring_boot_rest.exception.UnauthorizedUser;
+import ru.netology.netology_spring_boot_rest.repository.Authorities;
 import ru.netology.netology_spring_boot_rest.repository.UserRepository;
 
 import java.util.List;
@@ -28,6 +29,10 @@ public class AuthorizationService {
         }
 
         List<Authorities> userAuthorities = userRepository.getUserAuthorities(user, password);
+
+        if (userAuthorities == null) {
+            throw new AuthorizationError("Authorization error");
+        }
 
         if (isEmpty(userAuthorities)) {
             throw new UnauthorizedUser("Unknown user " + user);

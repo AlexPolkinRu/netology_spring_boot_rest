@@ -1,4 +1,4 @@
-package ru.netology.netology_spring_boot_rest;
+package ru.netology.netology_spring_boot_rest.repository;
 
 /**
  * @author Aleksandr Polochkin
