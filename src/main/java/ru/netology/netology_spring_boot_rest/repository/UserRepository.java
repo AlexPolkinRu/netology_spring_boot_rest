@@ -55,11 +55,11 @@ public class UserRepository {
     }
 
     public List<Authorities> getUserAuthorities(String user, String password) {
-        if (user.isEmpty() || password.isEmpty()) {
+        if (user.isEmpty() || password.isEmpty() || !users.containsKey(user)) {
             return Collections.emptyList();
         } else {
             User currentUser;
-            if (users.containsKey(user) && (currentUser = users.get(user)).getPassword().equals(password)) {
+            if ((currentUser = users.get(user)).getPassword().equals(password)) {
                 return currentUser.getAuthoritiesOfUser();
             } else {
                 return null;
